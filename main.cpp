@@ -76,18 +76,59 @@ int main(int argc, char const * argv[])
         lseek(fd, -(image_width / 8), SEEK_CUR);    // 읽었던 이미지의 첫 번째 픽셀로 이동.
     }
 
-    for(int i = 0; i < image_height; i++){
-        for(int j = 0; j < image_width; j++){
-            if(image[i][j] == true)
-                cout << " " << " ";
-            else
-                cout << "*" << " ";
-        }
+    close(fd);
+    
+    WINDOW * window;
 
-        cout << endl;
+    initscr();
+
+    if(has_colors == FALSE){
+        puts("Terminal does not support colors!");
+        endwin();
+        return 1;
+    }
+    else{
+        start_color();
+        init_pair(1, COLOR_BLUE, COLOR_WHITE);
+        init_pair(2, COLOR_WHITE, COLOR_BLUE);
     }
 
-    close(fd);
+    refresh();
+
+    window = newwin(image_height / 4, image_width / 2, 0, 0);
+
+    wbkgd(window, COLOR_PAIR(1));
+
+    /*
+        --- Braille Unicode ---
+
+        Start from '/u2800'.
+            ( 1   )  ( 8   )
+            ( 2   )  ( 16  )
+            ( 4   )  ( 32  )
+            ( 64  )  ( 128 )
+
+        Need to think about 2 * 4 matrix and adding the numbers that matches.
+    */
+
+    wprintw(window, "Hello!");
+
+    wrefresh(window);
+
+    getch();
+
+    endwin();
+
+    // for(int i = 0; i < image_height; i++){
+    //     for(int j = 0; j < image_width; j++){
+    //         if(image[i][j] == true)
+    //             cout << " " << " ";
+    //         else
+    //             cout << "*" << " ";
+    //     }
+
+    //     cout << endl;
+    // }
 
     return 0;
 }
