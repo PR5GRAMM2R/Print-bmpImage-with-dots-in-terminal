@@ -1,17 +1,28 @@
-#include <ncurses.h>
+#include <ncursesw/curses.h>
+// #include <ncurses.h>
 #include <unistd.h>
 #include <iostream>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <locale>
+#include <codecvt>
+//#include "atom.hpp"
 
 using namespace std;
 
 int main(int argc, char const * argv[])
 {
+    std::locale::global(std::locale(""));   // Set program's locale to default for using Unicode.
+    std::wcout.imbue(std::locale());
+
+    // std::wstring_convert<std::codecvt_utf8<wchar_t>, wchar_t> converter;
+
+    //setlocale(LC_ALL, "");
+
     if(argc < 2){
-        cout << "Insert Error : a.txt [ Bitmap Image File ]" << endl;
+        std::cout << "Insert Error : a.txt [ Bitmap Image File ]" << endl;
 
         exit(-1);
     }
@@ -20,12 +31,12 @@ int main(int argc, char const * argv[])
     // char pathname[20] = "./";
     // strcat(pathname, argv[1]);
 
-    cout << argv[1] << endl;
+    std::cout << argv[1] << endl;
 
     int fd = open(argv[1], O_RDONLY);
 
     if(fd < 0){
-        cout << "Image open error!" << endl;
+        std::cout << "Image open error!" << endl;
 
         exit(-2);
     }
@@ -111,13 +122,63 @@ int main(int argc, char const * argv[])
         Need to think about 2 * 4 matrix and adding the numbers that matches.
     */
 
-    wprintw(window, "Hello!");
+    //waddstr(window, "\u2888");
+
+    // wchar_t unicode = 2800;
+
+    for(int i = 0; i < image_height / 4; i++){
+        for(int j = 0; j < image_width / 2; j++){
+            wchar_t temp = U'\u2800';
+
+            //unsigned short temp = 2800;
+
+            if(image[4 * i + 0][2 * j + 0] == true){
+                temp += 1;
+            }
+            if(image[4 * i + 0][2 * j + 1] == true){
+                temp += 8;
+            }
+            if(image[4 * i + 1][2 * j + 0] == true){
+                temp += 2;
+            }
+            if(image[4 * i + 1][2 * j + 1] == true){
+                temp += 16;
+            }
+            if(image[4 * i + 2][2 * j + 0] == true){
+                temp += 4;
+            }
+            if(image[4 * i + 2][2 * j + 1] == true){
+                temp += 32;
+            }
+            if(image[4 * i + 3][2 * j + 0] == true){
+                temp += 64;
+            }
+            if(image[4 * i + 3][2 * j + 1] == true){
+                temp += 128;
+            }
+
+            wchar_t a = temp;
+            // converter.to_bytes(temp)
+            // wchar_t a = (wchar_t)converter.to_bytes(temp);
+            mvwaddwstr(window, i, j, &temp);
+            // waddstr(window, (const char *)converter.to_bytes(temp));
+        }
+
+        waddch(window, '\n');
+    }
+   
+
 
     wrefresh(window);
 
     getch();
 
     endwin();
+
+    // char16_t c = U'\u2801';
+    // c = c + 1;
+    // std::cout << converter.to_bytes(c) << std::endl;
+    // return 0;
 
     // for(int i = 0; i < image_height; i++){
     //     for(int j = 0; j < image_width; j++){
@@ -129,6 +190,13 @@ int main(int argc, char const * argv[])
 
     //     cout << endl;
     // }
+
+    // wchar_t i = L'\u2888';
+
+
+    // std::wcout << _T(i) << endl;
+
+
 
     return 0;
 }
