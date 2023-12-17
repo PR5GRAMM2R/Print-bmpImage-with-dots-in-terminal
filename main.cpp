@@ -1,5 +1,5 @@
-#include <ncursesw/curses.h>
-// #include <ncurses.h>
+#include <ncursesw/curses.h>        // "g++ main.cpp -o main.out -lncursesw" 로 터미널 컴파일 필수.
+// #include <ncurses.h>             // 2020203011 배주환
 #include <unistd.h>
 #include <iostream>
 #include <fcntl.h>
@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <locale>
 #include <codecvt>
+#include <vector>
 //#include "atom.hpp"
 
 using namespace std;
@@ -56,7 +57,7 @@ int main(int argc, char const * argv[])
     read(fd, &image_width, sizeof(int));    // Bit 단위로 다루어야 하지만, 파일 입출력으로는
     read(fd, &image_height, sizeof(int));   // Byte 단위로밖에 다룰 수 없다.
 
-    bool image[image_width][image_height];
+    vector<vector<bool>> image(image_height, vector<bool> (image_width));       // 2차원 vector 사용.
     
     lseek(fd, 0, SEEK_END);        // 이미지 파일의 마지막으로 이동.
 
@@ -111,7 +112,7 @@ int main(int argc, char const * argv[])
     wbkgd(window, COLOR_PAIR(1));
 
     /*
-        --- Braille Unicode ---
+        --- Braille Unicode (점자 유니코드) ---
 
         Start from '/u2800'.
             ( 1   )  ( 8   )
@@ -119,7 +120,7 @@ int main(int argc, char const * argv[])
             ( 4   )  ( 32  )
             ( 64  )  ( 128 )
 
-        Need to think about 2 * 4 matrix and adding the numbers that matches.
+        2 * 4 행렬을 가지고 각 부분마다 match 되는 부분에 해당 위치의 수를 더해야 함.
     */
 
     //waddstr(window, "\u2888");
@@ -130,30 +131,32 @@ int main(int argc, char const * argv[])
         for(int j = 0; j < image_width / 2; j++){
             wchar_t temp = U'\u2800';
 
+            bool compare = false;
+
             //unsigned short temp = 2800;
 
-            if(image[4 * i + 0][2 * j + 0] == true){
+            if(image[4 * i + 0][2 * j + 0] == compare){
                 temp += 1;
             }
-            if(image[4 * i + 0][2 * j + 1] == true){
+            if(image[4 * i + 0][2 * j + 1] == compare){
                 temp += 8;
             }
-            if(image[4 * i + 1][2 * j + 0] == true){
+            if(image[4 * i + 1][2 * j + 0] == compare){
                 temp += 2;
             }
-            if(image[4 * i + 1][2 * j + 1] == true){
+            if(image[4 * i + 1][2 * j + 1] == compare){
                 temp += 16;
             }
-            if(image[4 * i + 2][2 * j + 0] == true){
+            if(image[4 * i + 2][2 * j + 0] == compare){
                 temp += 4;
             }
-            if(image[4 * i + 2][2 * j + 1] == true){
+            if(image[4 * i + 2][2 * j + 1] == compare){
                 temp += 32;
             }
-            if(image[4 * i + 3][2 * j + 0] == true){
+            if(image[4 * i + 3][2 * j + 0] == compare){
                 temp += 64;
             }
-            if(image[4 * i + 3][2 * j + 1] == true){
+            if(image[4 * i + 3][2 * j + 1] == compare){
                 temp += 128;
             }
 
@@ -167,8 +170,6 @@ int main(int argc, char const * argv[])
         waddch(window, '\n');
     }
    
-
-
     wrefresh(window);
 
     getch();
@@ -196,7 +197,6 @@ int main(int argc, char const * argv[])
 
     // std::wcout << _T(i) << endl;
 
-
-
     return 0;
 }
+
