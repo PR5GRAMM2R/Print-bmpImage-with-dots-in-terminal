@@ -2,7 +2,8 @@
 
  본 프로젝트는 점자와 같은 유니코드를 사용하기에 조금 다르게 NCURSES 로 컴파일하여야 한다. 
  점자를 사용하지 않으면 "g++ main.cpp -o main.out -lncurses" 로 컴파일하면 되지만, 
-   이 프로젝트에서는 유니코드를 사용해서 lncurses 가 아닌 lncursesw 를 사용하여, "g++ main.cpp -o main.out -lncursesw" 로 컴파일하여야 한다.
+   이 프로젝트에서는 유니코드를 사용해서 lncurses 가 아닌 lncursesw 를 사용하여, 
+   "g++ main.cpp -o main.out -lncursesw" 로 컴파일하여야 한다.
 
  컴파일 후 실행하는 방법은 "./main.out test_9.bmp" 와 같이 "./main.out" 다음에 열고 싶은 단색 비트맵 이미지 파일을 입력해주면 된다.
 
