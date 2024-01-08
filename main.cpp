@@ -1,4 +1,4 @@
-#include <ncursesw/curses.h>        // "g++ main.cpp braille.cpp -o main.out -lncursesw" 로 터미널 컴파일 필수.
+#include <ncursesw/curses.h>        // "g++ main.cpp original.cpp braille.cpp -o main.out -lncursesw" 로 터미널 컴파일 필수.
 // #include <ncurses.h>             // 2020203011 배주환
 #include <unistd.h>
 #include <iostream>
