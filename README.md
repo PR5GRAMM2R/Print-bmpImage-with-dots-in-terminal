@@ -2,7 +2,7 @@
 
 It works on Ubuntu system.
 
-First, Compile these at terminal using command "g++ main.cpp original.cpp braille.cpp -o main.out -lncursesw".
+First, Compile these at terminal using command "g++ main.cpp screen.cpp original.cpp braille.cpp -o main.out -lncursesw".
 
 Second, to execute the execute file, input the command into the terminal like "./main.out [ BMP Image File Name ]".
 
