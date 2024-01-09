@@ -1,7 +1,7 @@
 #ifndef __ORIGINAL__
 #define __ORIGINAL__
 
-class original{
+class Original{
     private:
         int width = 0;
         int height = 0;
@@ -9,9 +9,9 @@ class original{
         bool** image;
 
     public:
-        original();
+        Original();
         
-        ~original();
+        ~Original();
 
         void loadImage(const char * location);
 

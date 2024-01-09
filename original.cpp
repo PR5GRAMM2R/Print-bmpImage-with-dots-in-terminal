@@ -6,12 +6,12 @@
 
 using namespace std;
 
-original::original()
+Original::Original()
 {
 
 }
 
-original::~original()
+Original::~Original()
 {
     for(int i = 0; i < height; i++){
         delete image[i];
@@ -23,7 +23,7 @@ original::~original()
     height = 0;
 }
 
-void original::loadImage(const char * location)
+void Original::loadImage(const char * location)
 {
     int fd = open(location, O_RDONLY);
 
@@ -79,17 +79,17 @@ void original::loadImage(const char * location)
     return;
 }
 
-int original::getWidth()
+int Original::getWidth()
 {
     return width;
 }
 
-int original::getHeight()
+int Original::getHeight()
 {
     return height;
 }
 
-bool**& original::getImage()
+bool**& Original::getImage()
 {
     return image;
 }

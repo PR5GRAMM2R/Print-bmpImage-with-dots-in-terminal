@@ -10,6 +10,7 @@
 #include <codecvt>
 #include "braille.hpp"
 #include "original.hpp"
+#include "screen.hpp"
 
 using namespace std;
 
@@ -26,13 +27,13 @@ int main(int argc, char const * argv[])
 
     std::cout << argv[1] << endl;
     
-    original ori;
+    Original ori;
 
     ori.loadImage(argv[1]);
 
-    int screenWidth = ori.getWidth();
-    int screenHeight = ori.getHeight();
-    bool** screenImage = ori.getImage();
+    Screen mainScreen(256, 128);
+
+    mainScreen.updateScreen(0, 0, ori.getImage());
 
     WINDOW * window;
 
@@ -51,26 +52,14 @@ int main(int argc, char const * argv[])
 
     refresh();
 
-    window = newwin(screenHeight / 4, screenWidth / 2, 0, 0);
+    window = newwin(mainScreen.getHeight() / 4, mainScreen.getWidth() / 2, 0, 0);
 
     wbkgd(window, COLOR_PAIR(1));
 
-    for(int i = 0; i < screenHeight / 4; i++){
-        for(int j = 0; j < screenWidth / 2; j++){
-            bool braille[4][2];
-
-            for(int a = 0; a < 4; a++){
-                for(int b = 0; b < 2; b++){
-                    braille[a][b] = screenImage[4 * i + a][2 * j + b];
-                }
-            }
-
-            wchar_t temp = makeBraille(braille);
-
-            
-            mvwaddwstr(window, i, j, &temp);
+    for(int i = 0; i < mainScreen.getHeight(); i++){
+        for(int j = 0; j < mainScreen.getWidth(); j++){
+            mvwaddwstr(window, i, j, &(mainScreen.getScreenBraille())[i][j]);
         }
-
         waddch(window, '\n');
     }
    
