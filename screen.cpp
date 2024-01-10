@@ -1,5 +1,4 @@
 #include "screen.hpp"
-#include "braille.hpp"
 
 // Screen::Screen()
 // {

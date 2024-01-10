@@ -1,6 +1,8 @@
 #ifndef __SCREEN__
 #define __SCREEN__
 
+#include "braille.hpp"
+
 class Screen{
     private:
         int width;
