@@ -29,7 +29,7 @@ Screen::~Screen()
 
 void Screen::updateScreen(int widthOffset, int heightOffset, bool**& originalImage)
 {
-    for(int i = 0; i < height / 4; i++){
+        for(int i = 0; i < height / 4; i++){
         for(int j = 0; j < width / 2; j++){
             bool braille[4][2];
 

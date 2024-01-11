@@ -13,9 +13,9 @@ Original::Original()
 
 Original::~Original()
 {
-    for(int i = 0; i < height; i++){
-        delete image[i];
-    }
+    // for(int i = 0; i < height; i++){
+    //     delete image[i];
+    // }
 
     delete image;
 
@@ -63,7 +63,7 @@ void Original::loadImage(const char * location)
 
                 if(comp == 0)
                     image[i][j + offset] = false;
-                else
+                else 
                     image[i][j + offset] = true;
 
                 offset++;

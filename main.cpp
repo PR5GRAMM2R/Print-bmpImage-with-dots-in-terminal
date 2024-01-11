@@ -22,48 +22,6 @@ int main(int argc, char const * argv[])
     System sys(argv[1], atoi(argv[2]), atoi(argv[3]));
 
     sys.startSystem();
-    
-    // Original ori;
-
-    // ori.loadImage(argv[1]);
-
-    // Screen mainScreen(atoi(argv[2]), atoi(argv[3]));
-
-    // mainScreen.updateScreen(0, 0, ori.getImage());
-
-    // WINDOW * window;
-
-    // initscr();
-
-    // if(has_colors == FALSE){
-    //     puts("Terminal does not support colors!");
-    //     endwin();
-    //     return 1;
-    // }
-    // else{
-    //     start_color();
-    //     init_pair(1, COLOR_BLUE, COLOR_WHITE);
-    //     init_pair(2, COLOR_WHITE, COLOR_BLUE);
-    // }
-
-    // refresh();
-
-    // window = newwin(mainScreen.getHeight() / 4, mainScreen.getWidth() / 2, 0, 0);
-
-    // wbkgd(window, COLOR_PAIR(1));
-
-    // for(int i = 0; i < mainScreen.getHeight(); i++){
-    //     for(int j = 0; j < mainScreen.getWidth(); j++){
-    //         mvwaddwstr(window, i, j, &(mainScreen.getScreenBraille())[i][j]);
-    //     }
-    //     waddch(window, '\n');
-    // }
-   
-    // wrefresh(window);
-
-    // getch();
-
-    // endwin();
 
     // for(int i = 0; i < screenHeight; i++){
     //     for(int j = 0; j < screenWidth; j++){

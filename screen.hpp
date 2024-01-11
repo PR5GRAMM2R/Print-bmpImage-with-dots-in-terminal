@@ -2,6 +2,7 @@
 #define __SCREEN__
 
 #include "braille.hpp"
+#include "original.hpp"
 
 class Screen{
     private:

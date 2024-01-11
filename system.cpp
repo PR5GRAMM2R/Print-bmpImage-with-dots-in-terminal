@@ -2,6 +2,7 @@
 #include <ncursesw/curses.h>
 // #include <ncurses.h>
 #include <unistd.h>
+#include <iostream>
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
@@ -26,11 +27,17 @@ void System::startSystem()
 {
     Original ori;
 
+    // std::cout << 1 << std::endl;/////////////
+
     ori.loadImage(bmpFileName);
+
+    // std::cout << 2 << std::endl;/////////////
 
     Screen mainScreen(settedWidth, settedHeight);
 
-    mainScreen.updateScreen(0, 0, ori.getImage());
+    // std::cout << 3 << std::endl;/////////////
+
+    // mainScreen.updateScreen(0, 0, ori.getImage());
 
     WINDOW * window;
 
@@ -53,16 +60,54 @@ void System::startSystem()
 
     wbkgd(window, COLOR_PAIR(1));
 
-    for(int i = 0; i < mainScreen.getHeight(); i++){
-        for(int j = 0; j < mainScreen.getWidth(); j++){
-            mvwaddwstr(window, i, j, &(mainScreen.getScreenBraille())[i][j]);
-        }
-        waddch(window, '\n');
-    }
-   
-    wrefresh(window);
+    char input = 0;
+    int widthOffset = 0;
+    int heightOffset = 0;
 
-    getch();
+    while(input != 'q'){
+        mainScreen.updateScreen(widthOffset, heightOffset, ori.getImage());
+
+        for(int i = 0; i < mainScreen.getHeight(); i++){
+            for(int j = 0; j < mainScreen.getWidth(); j++){
+                mvwaddwstr(window, i, j, &(mainScreen.getScreenBraille())[i][j]);
+            }
+            waddch(window, '\n');
+        }
+
+        wrefresh(window);
+
+        input = getch();
+
+        switch(input){
+            case 'w':
+                if(heightOffset == 0)
+                    break;
+                else
+                    heightOffset--;
+                break;
+            
+            case 's':
+                if(heightOffset == ori.getHeight() - mainScreen.getHeight())
+                    break;
+                else
+                    heightOffset++;
+                break;
+
+            case 'a':
+                if(widthOffset == 0)
+                    break;
+                else
+                    widthOffset--;
+                break;
+
+            case 'd':
+                if(widthOffset == ori.getWidth() - mainScreen.getWidth())
+                    break;
+                else
+                    widthOffset++;
+                break;
+        }
+    }
 
     endwin();
 

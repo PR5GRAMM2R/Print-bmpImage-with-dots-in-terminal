@@ -8,6 +8,8 @@ class Original{
 
         bool** image;
 
+        // bool* image;
+
     public:
         Original();
         

@@ -14,7 +14,7 @@ wchar_t makeBraille(bool braille[4][2])
 
     wchar_t temp = U'\u2800';
 
-    bool compare = false;
+    bool compare = 0;
 
     //unsigned short temp = 2800;
 

@@ -8,6 +8,15 @@ Second, to execute the execute file, input the command into the terminal like ".
 
 For example, input the command "./main.out test_9.bmp 256 128".
 
+After exectuing,
+
+  press 'w' to go upward,
+  press 's' to go downward,
+  press 'a' to go left,
+  press 'd' to go right,
+  press 'q' to quit.
+
+I hate the number 4119.
 
 ===============================================================================================================
 
